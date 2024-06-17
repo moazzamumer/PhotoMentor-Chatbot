@@ -12,7 +12,7 @@ class GPT():
 
     def get_response(self, history, user_id, db):
         response = self.client.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="ft:gpt-3.5-turbo-0125:photomentor-ai::9atY9QUr",
             messages = history,
             stream=True
         )

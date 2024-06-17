@@ -11,7 +11,7 @@ def create_chat_message(db: Session, role: str, text: str, user_id: int):
 
 def get_conversation_history(db: Session, user_id: int, limit: int = 20):
     messages = db.query(models.ChatMessage).filter(models.ChatMessage.user_id == user_id).order_by(models.ChatMessage.timestamp.asc()).limit(limit).all()
-    system_prompt = [{"role": "system", "content": "You are a helpful assistant" }]
+    system_prompt = [{"role": "system", "content": "You are a helpful photo mentor chatbot dedicated to discuss capture ideas, techniques, location scouting and any thing related to photography. You can also assist in developing portfolios, project proposals, blog posts and many other things." }]
     # Format the messages as desired
     history = [{"role": message.role, "content": message.text} for message in messages]
     return system_prompt + history
