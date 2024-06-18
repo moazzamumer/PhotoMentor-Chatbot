@@ -2,8 +2,11 @@ from fastapi import FastAPI, Depends
 from fastapi.responses import StreamingResponse
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware
-import uvicorn
+from dotenv import load_dotenv
+import uvicorn, os
 import db_conn, models, crud, gpt
+
+load_dotenv()
 
 engine, SessionLocal = db_conn.create_db()
 models.Base.metadata.create_all(bind=engine)
@@ -54,4 +57,4 @@ async def chat(user_id: int, prompt: str, db: Session = Depends(get_db)):
 
 if __name__ == "__main__":
     
-    uvicorn.run("init:app", host = "127.0.0.1", port = 8000, reload = True)
+    uvicorn.run("init:app", host = os.getenv("HOST"), port = os.getenv("PORT"), reload = True)
