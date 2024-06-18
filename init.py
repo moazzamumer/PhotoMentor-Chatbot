@@ -7,6 +7,9 @@ import uvicorn, os
 import db_conn, models, crud, gpt
 
 load_dotenv()
+PORT = int(os.getenv("PORT"))
+HOST = os.getenv("HOST")
+
 
 engine, SessionLocal = db_conn.create_db()
 models.Base.metadata.create_all(bind=engine)
@@ -57,4 +60,4 @@ async def chat(user_id: int, prompt: str, db: Session = Depends(get_db)):
 
 if __name__ == "__main__":
     
-    uvicorn.run("init:app", host = os.getenv("HOST"), port = os.getenv("PORT"), reload = True)
+    uvicorn.run("init:app", host = HOST, port = PORT, reload = True)
